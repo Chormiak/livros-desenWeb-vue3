@@ -1,4 +1,5 @@
 import { reactive, type Reactive } from "vue";
+import { Pokemon } from "./Pokemon";
 
 interface BookProps {
     id: number,
@@ -18,7 +19,7 @@ class Storage {
                 title: 'Book' + i,
                 review: 'bla bla bla' + i,
                 price: this.randomPrice(10, 100),
-                image: ''
+                image: Pokemon.generateURL()
             });
         }
     }
