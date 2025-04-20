@@ -1,7 +1,7 @@
 import { reactive, type Reactive } from "vue";
 import { Pokemon } from "./Pokemon";
 
-interface BookProps {
+export interface BookProps {
     id: number,
     title: string,
     review: string,
