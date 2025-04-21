@@ -1,4 +1,6 @@
 <script setup lang="ts">
+    import { computed } from 'vue';
+
     import { storage } from '@/services/Storage';
     import { store } from '@/services/Store';
 </script>
@@ -8,7 +10,7 @@
             <img :src="book.image" alt="pokemon image">
             <div>
                 <button @click="store.manageCart(book.id, true)">+</button>
-                <p>{{ store.resultShopping.value.listShopping.find(item => item.id == book.id)?.count ?? 0 }}</p>
+                <p>{{ computed(() => store.findCountById(book.id)) }}</p>
                 <button @click="store.manageCart(book.id, false)">-</button>
             </div>
             <h3>{{ book.title }}</h3>
