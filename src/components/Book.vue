@@ -5,6 +5,7 @@
     import { store } from '@/services/Store';
 </script>
 <template>
+    <h2>Adicione livros no seu carrinho</h2>
     <ul>
         <li v-for="(book, index) in storage.books" :key="`book${index}`">
             <img :src="book.image" alt="pokemon image">
@@ -26,7 +27,7 @@
         justify-content: center;
     }
     ul li {
-        width: calc(100% / 4);
+        width: calc(100% / 5);
         text-align: center;
     }
     img {
@@ -35,8 +36,5 @@
     ul li div {
         display: flex;
         justify-content: center;
-    }
-    ul h3 {
-        font-size: 1.5rem;
     }
 </style>
