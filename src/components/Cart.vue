@@ -5,6 +5,7 @@
     const data = computed(() => store.resultShopping());
 </script>
 <template>
+    <h2>Itens no seu carrinho</h2>
     <ul>
         <li v-for="(book, index) in data.listShopping">
             <h3>{{ book.title }}</h3>
@@ -21,7 +22,7 @@
         justify-content: center;
     }
     ul li {
-        width: calc(100% / 4);
+        width: calc(100% / 5);
         text-align: center;
         margin-bottom: 0.5vw;
     }
@@ -29,7 +30,7 @@
         display: flex;
         justify-content: center;
     }
-    ul h3 {
-        font-size: 1.5rem;
+    p {
+        text-align: center;
     }
 </style>

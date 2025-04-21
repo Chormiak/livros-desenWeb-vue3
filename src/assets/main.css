@@ -1,1 +1,29 @@
 @import './reset.css';
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+#app {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+h1 {
+    font-size: 1.75rem;
+    text-align: center;
+}
+h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1vw;
+}
+h3 {
+    font-size: 1.25rem;
+}
