@@ -20,33 +20,33 @@ class Store {
         if (indexBook >= 0) {
             if (this.cart[indexBook].count -1 > 0 || addOne) {
                 this.cart[indexBook].count += addOne ? 1 : -1;
-                return;
             }
-            this.cart.splice(indexBook, 1);
-            return;
+            else this.cart.splice(indexBook, 1);
         }
-        if (addOne) this.cart.push({ id, count: 1 });
+        else if (addOne) this.cart.push({ id, count: 1 });
+        this.resultShopping();
     }
 
-    public resultShopping: ComputedRef<{ listShopping: BookCompleteProps[], totalPurchase: number }> = 
-    computed(() => {
-        const listShopping: BookCompleteProps[] = 
-        storage.books
+    public resultShopping(): { listShopping: BookCompleteProps[], totalPurchase: number } {
+        const listShopping: BookCompleteProps[] = storage.books
         .filter(book => this.cart.some(chosenBook => chosenBook.id == book.id))
         .map(book => {
             const count = this.cart.find(chosenBook => chosenBook.id == book.id)?.count ?? 0;
             return { 
                 ...book, 
-                count: count,
+                count,
                 total: book.price * count
             }
         });
-        
         return {
             listShopping,
             totalPurchase: listShopping.reduce((total, book) => total + book.total, 0)
         }
-    });
+    };
+
+    public findCountById(id: number): number {
+        return this.resultShopping().listShopping.find(book => book.id == id)?.count ?? 0;
+    }
 }
 
 const store = new Store();
