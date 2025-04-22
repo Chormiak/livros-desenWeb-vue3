@@ -2,12 +2,12 @@
     import { computed } from 'vue';
 
     import { store } from '@/services/Store';
-    const data = computed(() => store.resultShopping());
+    const data = computed(() => store.detailedCart());
 </script>
 <template>
     <h2>Itens no seu carrinho</h2>
     <ul>
-        <li v-for="(book, index) in data.listShopping">
+        <li v-for="(book, index) in data.listCart">
             <h3>{{ book.title }}</h3>
             <p>${{ book.price }} * count: {{ book.count }} = ${{ book.total }}</p>
             <button @click="store.manageCart(book.id, false)">Remover</button>

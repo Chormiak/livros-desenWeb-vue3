@@ -9,17 +9,18 @@ export interface BookProps {
     image: string
 }
 
-class Storage {
+class Storage extends Pokemon {
     public books: Reactive<BookProps[]> = reactive([]);
 
     constructor(repeat: number) {
+        super();
         for (let i = 0; i < repeat; i += 1) {
             this.books.push({
                 id: i,
                 title: 'Book' + i,
-                review: 'bla bla bla' + i,
+                review: 'bla bla bla, ble ble ' + i,
                 price: this.randomPrice(10, 100),
-                image: Pokemon.generateURL()
+                image: this.generateUrlPokemon()
             });
         }
     }
