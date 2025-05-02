@@ -1,51 +1,48 @@
 import { reactive, type Reactive } from "vue";
 import { storage } from "./Storage";
-import type { BookProps } from "./Storage";
 
-interface BookCartProps {
-    id: number,
-    count: number
-}
-interface BookCompleteProps extends BookProps {
-    count: number, 
+interface CartProps {
+    itens: {
+        id: number,
+        count: number,
+        total: number
+    }[],
     total: number
 }
 
 class Store {
-    private cart: Reactive<BookCartProps[]> = reactive([]);
+    public cart: Reactive<CartProps> = reactive({ itens: [], total: 0 });
 
-    public manageCart(id: number, addOne: boolean): void { 
-        const indexBook: number = this.cart.findIndex(book => book.id == id);
+    public manageCart(id: number, addOne: boolean): void {
+        // manage item
+        const indexItem: number = this.cart.itens.findIndex(item => item.id == id);
 
-        if (indexBook >= 0) {
-            if (this.cart[indexBook].count -1 > 0 || addOne) {
-                this.cart[indexBook].count += addOne ? 1 : -1;
+        if (indexItem >= 0) {
+            const count: number = this.cart.itens[indexItem].count + (addOne ? 1 : -1);
+
+            if (count > 0 || addOne) {
+                this.cart.itens[indexItem] = {
+                    id,
+                    count,
+                    total: count * storage.books[id].price
+                }
+
             }
-            else this.cart.splice(indexBook, 1);
+            else this.cart.itens.splice(indexItem, 1);
         }
-        else if (addOne) this.cart.push({ id, count: 1 });
-        this.detailedCart();
+        else if (addOne) {
+            this.cart.itens.push({ id, count: 1, total: storage.books[id].price });
+            // organizing items
+            this.cart.itens.sort((item1, item2) => item1.id - item2.id);
+        }
+
+        // adding prices
+        this.cart.total = this.cart.itens.reduce((total, item) => total + item.total, 0);
+
     }
 
-    public detailedCart(): { listCart: BookCompleteProps[], totalPurchase: number } {
-        const listCart: BookCompleteProps[] = storage.books
-        .filter(book => this.cart.some(chosenBook => chosenBook.id == book.id))
-        .map(book => {
-            const count = this.cart.find(chosenBook => chosenBook.id == book.id)?.count ?? 0;
-            return { 
-                ...book, 
-                count,
-                total: book.price * count
-            }
-        });
-        return {
-            listCart,
-            totalPurchase: listCart.reduce((total, book) => total + book.total, 0)
-        }
-    };
-
     public findCountById(id: number): number {
-        return this.detailedCart().listCart.find(book => book.id == id)?.count ?? 0;
+        return this.cart.itens.find(item => item.id == id)?.count ?? 0;
     }
 }
 

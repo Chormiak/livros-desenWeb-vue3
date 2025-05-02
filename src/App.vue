@@ -10,7 +10,7 @@
 <template>
   <header>
     <h1>Lojinha de Livros</h1>
-    <button @click="replaceMain">Mudar</button>
+    <button @click="replaceMain">Ir para {{ changes ? 'o carrinho' : 'a loja' }}</button>
   </header>
   <main>
     <Book v-if="changes" />

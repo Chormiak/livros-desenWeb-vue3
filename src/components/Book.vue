@@ -8,10 +8,10 @@
     <h2>Adicione livros no seu carrinho</h2>
     <ul>
         <li v-for="(book, index) in storage.books" :key="`book${index}`">
-            <img :src="book.image" alt="pokemon image">
+            <img :src="book.image" :alt="`pokemonImage${index}`">
             <div>
                 <button @click="store.manageCart(book.id, true)">+</button>
-                <p>{{ computed(() => store.findCountById(book.id)) }}</p>
+                <p class="quantidade">{{ computed(() => store.findCountById(book.id)) }}</p>
                 <button @click="store.manageCart(book.id, false)">-</button>
             </div>
             <h3>{{ book.title }}</h3>
@@ -36,5 +36,8 @@
     ul li div {
         display: flex;
         justify-content: center;
+    }
+    p.quantidade {
+        margin: 0 0.5vw 0 0.5vw;
     }
 </style>
