@@ -14,10 +14,12 @@
                 {{ book.count }} livro{{ book.count > 1 ? 's' : '' }} = 
                 ${{ book.total }}
             </p>
-            <button @click="store.manageCart(book.id, true)">Mais livro</button>
-            <button @click="store.manageCart(book.id, false)">
-                Deletar {{ book.count > 1 ? 'um' : '' }} livro
-            </button>
+            <div>
+                <button @click="store.manageCart(book.id, true)">Mais livro</button>
+                <button @click="store.manageCart(book.id, false)">
+                    Deletar {{ book.count > 1 ? 'um' : '' }} livro
+                </button>
+            </div>
         </li>
     </ul>
     <p v-if="store.cart.itens.length == 0" >Não a nenhum livro no carrinho</p>

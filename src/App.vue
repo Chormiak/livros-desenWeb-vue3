@@ -1,11 +1,11 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, type Ref } from 'vue';
 
   import Book from './components/Book.vue';
   import Cart from './components/Cart.vue';
 
-  const changes = ref(true);
-  function replaceMain() { changes.value = !changes.value }
+  const changes: Ref<boolean> = ref(true);
+  function replaceMain(): void { changes.value = !changes.value }
 </script>
 <template>
   <header>
