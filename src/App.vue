@@ -5,7 +5,10 @@
   import Cart from './components/Cart.vue';
 
   const changes: Ref<boolean> = ref(true);
-  function replaceMain(): void { changes.value = !changes.value }
+    
+  function replaceMain(): void { 
+    changes.value = !changes.value 
+  }
 </script>
 <template>
   <header>

@@ -18,7 +18,7 @@ class Store {
         const indexItem: number = this.cart.itens.findIndex(item => item.id == id);
 
         if (indexItem >= 0) {
-            const count: number = this.cart.itens[indexItem].count + (addOne ? 1 : -1);
+            const count: number = this.cart.itens[indexItem].count + (addOne ? 1 : -1); // doing calculation
 
             if (count > 0) {
                 this.cart.itens[indexItem] = {
