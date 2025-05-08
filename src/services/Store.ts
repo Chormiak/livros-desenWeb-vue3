@@ -18,15 +18,14 @@ class Store {
         const indexItem: number = this.cart.itens.findIndex(item => item.id == id);
 
         if (indexItem >= 0) {
-            const count: number = this.cart.itens[indexItem].count + (addOne ? 1 : -1);
+            const count: number = this.cart.itens[indexItem].count + (addOne ? 1 : -1); // doing calculation
 
-            if (count > 0 || addOne) {
+            if (count > 0) {
                 this.cart.itens[indexItem] = {
                     id,
                     count,
                     total: count * storage.books[id].price
                 }
-
             }
             else this.cart.itens.splice(indexItem, 1);
         }
@@ -35,10 +34,8 @@ class Store {
             // organizing items
             this.cart.itens.sort((item1, item2) => item1.id - item2.id);
         }
-
         // adding prices
         this.cart.total = this.cart.itens.reduce((total, item) => total + item.total, 0);
-
     }
 
     public findCountById(id: number): number {

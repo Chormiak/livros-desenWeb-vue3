@@ -29,5 +29,5 @@ class Storage extends Pokemon {
     }
 }
 
-const storage = new Storage(10);
+const storage = new Storage(12);
 export { storage }

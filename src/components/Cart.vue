@@ -4,24 +4,30 @@
 </script>
 <template>
     <h2>Itens no seu carrinho</h2>
-    <p v-if="store.cart.total > 10000">Tem certeza que você quer tudo isso de livro?</p>
-    <ul>
-        <li v-for="(book, index) in store.cart.itens" :key="`item${index}`">
-            <img :src="storage.books[book.id].image" :alt="`pokemonImage${index}`">
-            <h3>{{ storage.books[book.id].title }}</h3>
-            <p>
-                ${{ storage.books[book.id].price }} * 
-                {{ book.count }} livro{{ book.count > 1 ? 's' : '' }} = 
-                ${{ book.total }}
-            </p>
-            <button @click="store.manageCart(book.id, true)">Mais livro</button>
-            <button @click="store.manageCart(book.id, false)">
-                Deletar {{ book.count > 1 ? 'um' : '' }} livro
-            </button>
-        </li>
-    </ul>
     <p v-if="store.cart.itens.length == 0" >Não a nenhum livro no carrinho</p>
-    <h3 v-else>Custo total da compra: ${{ store.cart.total }}</h3>
+    <div v-else>
+        <p :style="{ visibility: (store.cart.total > 10000) ? 'visible' : 'hidden' }"> 
+            Tem certeza que você quer tudo isso de livro?
+        </p>
+        <ul>
+            <li v-for="(book, index) in store.cart.itens" :key="`item${index}`">
+                <img :src="storage.books[book.id].image" :alt="`pokemonImage${index}`">
+                <h3>{{ storage.books[book.id].title }}</h3>
+                <p>
+                    ${{ storage.books[book.id].price }} * 
+                    {{ book.count }} livro{{ book.count > 1 ? 's' : '' }} = 
+                    ${{ book.total }}
+                </p>
+                <div>
+                    <button @click="store.manageCart(book.id, true)">Mais livro</button>
+                    <button @click="store.manageCart(book.id, false)">
+                        Deletar {{ book.count > 1 ? 'um' : '' }} livro
+                    </button>
+                </div>
+            </li>
+        </ul>
+        <h3>Custo total da compra: ${{ store.cart.total }}</h3>
+    </div>
 </template>
 <style scoped>
     ul {
